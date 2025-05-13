@@ -83,7 +83,7 @@ public class DeviceTrustManager {
         }
     }
 
-    /// Dışarıdan güncel score'a erişim.
+    /// Güncel Total Score'a erişim.
     public func calculateScore() async -> RiskScore {
         await scorer.scoreCalculation()
     }

@@ -26,15 +26,15 @@ public actor RiskScorer: Sendable {
         async let installedApplications = provider.fetchInstalledApplications()
         let osVersion = provider.fetchOSVersion()
 
-        /// Operator isim kontrolü, "emulator" içeriyorsa 30 puan ceza
-        let simOperatorNameFaul = (await simOperatorName)?
+        /// Operator isim kontrolü, "emulator" içeriyorsa 0 puan (-30 yerine hiç puan alamayacak) , içermiyor ise +30 puan
+        let simOperatorNameScore = (await simOperatorName)?
             .lowercased()
-            .contains("emulator") == true ? 30 : 0
+            .contains("emulator") == true ? 0 : 30
 
-        /// Cihazda jailbreak kontrolü, "Cydia" yüklüyse 40 puan ceza
-        let applicationFaul = (await installedApplications)
+        /// Cihazda jailbreak kontrolü, "Cydia" yüklüyse 0 puan (-40 yerine hiç puan alamayacak), yüklü değilse +40 puan
+        let applicationNameScore = (await installedApplications)
             .map { $0.lowercased() }
-            .contains("cydia") ? 40 : 0
+            .contains("cydia") ? 0 : 40
 
         /// OS Version kontrolü ve puanlama
         let osVersionScore: Int = {
@@ -46,15 +46,15 @@ public actor RiskScorer: Sendable {
             }
         }()
 
-        /// Puanlama sistemi 0-100 aralığında sınırlandırıldı
-        let scoreAbsoluteValue: Int = osVersionScore - simOperatorNameFaul - applicationFaul
+        /// Puanlama sistemi 0-100 aralığında sınırlandırıldı.
+        let scoreAbsoluteValue: Int = osVersionScore + simOperatorNameScore + applicationNameScore
         let totalScore = max(0, min(100, scoreAbsoluteValue))
 
         return RiskScore(
             totalScore: totalScore,
             breakdown: [
-                "simOperatorNameFaul": simOperatorNameFaul,
-                "applicationFaul": applicationFaul,
+                "simOperatorNameScore": simOperatorNameScore,
+                "applicationNameScore": applicationNameScore,
                 "osVersionScore": osVersionScore
             ]
         )

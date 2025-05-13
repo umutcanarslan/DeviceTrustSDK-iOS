@@ -1,3 +1,10 @@
+//
+//  MockDeviceSignalProvider.swift
+//  DeviceTrustSDK-iOS
+//
+//  Created by Umut Can Arslan on 12.05.2025.
+//
+
 import XCTest
 @testable import DeviceTrustSDK_iOS
 

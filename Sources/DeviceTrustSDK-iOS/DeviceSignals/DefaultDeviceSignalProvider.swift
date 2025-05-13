@@ -12,9 +12,13 @@ public class DefaultDeviceSignalProvider: DeviceSignalProvider, @unchecked Senda
 
     public init() {}
 
-    public func fetchSIMOperatorName() async -> String? { return nil }
+    public func fetchSIMOperatorName() async -> String? {
+        return nil
+    }
 
-    public func fetchInstalledApplications() async -> [String] { return [] }
+    public func fetchInstalledApplications() async -> [String] {
+        return []
+    }
 
     public func fetchOSVersion() -> OperatingSystemVersion {
         return ProcessInfo.processInfo.operatingSystemVersion
