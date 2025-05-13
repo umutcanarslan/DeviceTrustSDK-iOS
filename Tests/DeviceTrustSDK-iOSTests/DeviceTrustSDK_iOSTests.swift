@@ -45,7 +45,7 @@ final class RiskScorerTests: XCTestCase {
     func testEmulatorAndCydia_OsOnly() async {
         let provider = MockDeviceSignalProvider(
             simOperatorName: "EmulatorCell", // "Emulator" mevcut -> 0 puan
-            installedApplications: ["com.xxx.cydia"], // "Cydia" yüklü -> 0 puan
+            installedApplications: ["Cydia", "com.apple.Safari"], // "Cydia" yüklü -> 0 puan
             osVersion: OperatingSystemVersion(majorVersion: 14, minorVersion: 0, patchVersion: 0) // iOS 14 -> 20 puan
         )
 
