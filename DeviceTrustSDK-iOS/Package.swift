@@ -24,7 +24,8 @@ let package = Package(
         ),
         .testTarget(
             name: "DeviceTrustSDK-iOSTests",
-            dependencies: ["DeviceTrustSDK-iOS"]
+            dependencies: ["DeviceTrustSDK-iOS"],
+            path: "Tests/DeviceTrustSDK-iOSTests"
         ),
     ]
 )
