@@ -83,6 +83,11 @@ public class DeviceTrustManager {
         }
     }
 
+    /// Dışarıdan güncel score'a erişim.
+    public func calculateScore() async -> RiskScore {
+        await scorer.scoreCalculation()
+    }
+
     /// Monitoring’i başlatır.
     public func startMonitoring() {
         stopMonitoring()
